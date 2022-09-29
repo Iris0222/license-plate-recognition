@@ -2,7 +2,6 @@
 """
 Created on Wed Dec 15 21:00:38 2021
 車牌辨識系統
-@author: 10820109 10827231 10827238
 
 """
 
@@ -16,8 +15,7 @@ if len(sys.argv) == 2:
     img_n = sys.argv[1]
     # 讀取彩色的圖片
     img = cv2.imread(img_n)
-    # cv2.imshow("test",img)
-    # cv2.waitKey(0)
+
 
     if img is not None:
 
@@ -39,16 +37,11 @@ if len(sys.argv) == 2:
 
         # Laplacian進行邊緣檢測
         img3 = cv2.Sobel(img2, cv2.CV_8U, 1, 0, ksize=1)
-        # cv2.imshow("test",img3)
-        # cv2.waitKey(0)
         img4 = cv2.Canny(img3, 110, 100)
-        # cv2.imshow("test",img4)
-        # cv2.waitKey(0)
 
         # 進行二值化處理
         i, img5 = cv2.threshold(img4, 0, 255, cv2.THRESH_BINARY)
-        # cv2.imshow("test",img5)
-        # cv2.waitKey(0)
+
 
         # 可以侵蝕和擴張
         kernel1 = cv2.getStructuringElement(cv2.MORPH_RECT, (90, 10))
@@ -58,8 +51,6 @@ if len(sys.argv) == 2:
         img8 = cv2.dilate(img7, kernel1, 6)
         img9 = cv2.erode(img8, kernel2, 1)
         img6 = cv2.dilate(img9, kernel2, 2)
-        # cv2.imshow("test",img6)
-        # cv2.waitKey(0)
 
         # # 迴圈找到所有的輪廓
         i, j = cv2.findContours(img6, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
